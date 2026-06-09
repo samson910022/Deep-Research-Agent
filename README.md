@@ -8,7 +8,7 @@
 * **Funnel Synthesis:** Distills 1,400+ papers down to the top 50 most relevant, high-quality citations using a Master Synthesizer (Subagent C).
 * **Strict Quality Control:** Explicitly targets Q1-Q2 journals. Marks Q3 when strictly necessary. **Bans all Q4 and MDPI publications.**
 * **Zero-Hallucination Guarantee (Phase 4.5):** Automatically runs live `curl`/`requests` tests against every generated DOI to ensure 100% validity. Cross-references generated claims against raw abstracts to prevent AI overstatement.
-* **Automated Peer Review:** Integrates the `remi` peer-review skill to aggressively strip "AI fluff" (e.g., "delve", "tapestry") and enforce rigorous academic tone.
+* **Automated Peer Review:** Integrates the `remi` peer-review skill *(named in tribute to my academic advisor, Remi)* to aggressively strip "AI fluff" (e.g., "delve", "tapestry") and enforce rigorous academic tone.
 * **Hands-Free Output:** Programmatically builds a fully formatted Microsoft Word document (`.docx`) with APA 7th hanging indents and auto-generated data visualizations.
 * **Knowledge Management Loop:** Automatically saves research summaries to your local **Obsidian Vault** and uploads reference materials to **Google NotebookLM** for future interactive queries.
 
@@ -67,7 +67,7 @@ git clone https://github.com/YOUR_USERNAME/deep-research-agent.git
 3. **Phase 2 (Deep Extraction):** Consolidates metadata, abstracts, and key findings.
 4. **Phase 3 (Structural Drafting):** Outlines the article with evidence-backed claims and APA 7th citations.
 5. **Phase 4 & 4.5 (Anti-Hallucination):** Strips AI vocabulary. Pings all DOIs to ensure they resolve (404 = citation deleted).
-6. **Phase 5 (Remi Review):** An internal peer-review loop that critiques and rewrites the draft until academic standards are met.
+6. **Phase 5 (Remi Review):** An internal peer-review loop that critiques and rewrites the draft until academic standards are met. *(Named in tribute to my academic advisor, Remi).* 
 7. **Phase 6 (Compilation):** Python scripts draw Mermaid/Matplotlib charts and compile the final `.docx`.
 8. **Phase 7 (Knowledge Graph):** Updates Obsidian and pushes papers to NotebookLM.
 
