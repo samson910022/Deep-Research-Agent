@@ -3,7 +3,12 @@
 During Phase 4.5 (Anti-Hallucination), use these specific patterns to verify DOIs and retrieve metadata.
 
 ## 1. Crossref DOI Liveness Check (Terminal/Curl)
-The fastest way to verify if a DOI exists is a silent HTTP HEAD request to the Crossref API.
+The fastest way to manually verify if a DOI exists is a silent HTTP HEAD request to the Crossref API.
+
+> **⚠️ WARNING:** This `curl` example is for **manual/one-off testing only**.
+> For automated DOI verification in the pipeline, use Python `requests.get()` as instructed in SKILL.md Phase 4.5.
+> Never pass unsanitized DOIs/URLs to `curl` in automated code — doing so creates a command injection risk.
+
 ```bash
 # Returns HTTP 200 OK for real DOIs, HTTP 404 for hallucinations
 curl -I -s https://api.crossref.org/works/10.1016/j.jclepro.2024.140123 | grep HTTP

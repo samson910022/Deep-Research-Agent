@@ -7,7 +7,7 @@
 * **Massive Parallel Dual-Sourcing (1,400+ Papers):** Uses a Subagent architecture to concurrently scrape Elsevier Scopus (Subagent A) and Open Science databases like OpenAlex/Crossref (Subagent B).
 * **Funnel Synthesis:** Distills 1,400+ papers down to the top 50 most relevant, high-quality citations using a Master Synthesizer (Subagent C).
 * **Strict Quality Control:** Explicitly targets Q1-Q2 journals. Marks Q3 when strictly necessary. **Bans all Q4 and MDPI publications.**
-* **Zero-Hallucination Guarantee (Phase 4.5):** Automatically runs live `curl`/`requests` tests against every generated DOI to ensure 100% validity. Cross-references generated claims against raw abstracts to prevent AI overstatement.
+* **Zero-Hallucination Guarantee (Phase 4.5):** Automatically runs live HTTP `requests` tests against every generated DOI to ensure 100% validity. Cross-references generated claims against raw abstracts to prevent AI overstatement.
 * **Automated Peer Review:** Integrates the `remi` peer-review skill *(named in tribute to my academic advisor, Remi Chauvy)* to aggressively strip "AI fluff" (e.g., "delve", "tapestry") and enforce rigorous academic tone.
 * **Hands-Free Output:** Programmatically builds a fully formatted Microsoft Word document (`.docx`) with APA 7th hanging indents and auto-generated data visualizations.
 * **Knowledge Management Loop:** Automatically saves research summaries to your local **Obsidian Vault** and uploads reference materials to **Google NotebookLM** for future interactive queries.

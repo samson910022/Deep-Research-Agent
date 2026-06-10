@@ -1,11 +1,28 @@
 import urllib.request
 import base64
 import json
+import os
 
 
 class MermaidGenerationError(Exception):
     """Raised when Mermaid PNG generation fails."""
     pass
+
+
+SAFE_BASES = [
+    "D:\\",
+    os.path.expanduser("~/Documents/Obsidian Vault/Hermes/"),
+    os.getcwd(),
+]
+
+
+def safe_path(dest: str) -> bool:
+    """Validate that *dest* resolves to a path under an allowed base directory.
+
+    Prevents path-traversal writes to arbitrary filesystem locations.
+    """
+    abs_dest = os.path.abspath(dest)
+    return any(abs_dest.startswith(os.path.abspath(base)) for base in SAFE_BASES)
 
 
 def generate_mermaid_png(mermaid_code: str, output_path: str, theme: str = "default"):
@@ -30,6 +47,10 @@ def generate_mermaid_png(mermaid_code: str, output_path: str, theme: str = "defa
         json.dumps(state).encode('utf-8')
     ).decode('utf-8')
     url = f"https://mermaid.ink/img/{b64_str}"
+
+    if not safe_path(output_path):
+        print(f"[WARN] Unsafe path '{output_path}', redirecting to current directory")
+        output_path = os.path.basename(output_path)
 
     req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
     try:
