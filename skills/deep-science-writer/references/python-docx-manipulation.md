@@ -3,20 +3,24 @@
 When Phase 6 of the `deep-science-writer` skill requires generating or editing `.docx` files, use these proven patterns to avoid XML corruption or missing dependencies.
 
 ## Dependencies
-Ensure libraries are installed dynamically if missing:
+Check pre-installed versions at startup. Do NOT install packages dynamically.
 ```python
-import sys, subprocess
-try:
-    import docx
-except ImportError:
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "python-docx", "-q"])
-    import docx
+import importlib.metadata
 
-try:
-    import fitz # PyMuPDF for reading PDFs
-except ImportError:
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "PyMuPDF", "-q"])
-    import fitz
+required = {
+    "python-docx": "1.1.2",
+    "PyMuPDF": "1.24.0",
+    "requests": "2.32.0",
+}
+
+for pkg, ver in required.items():
+    try:
+        installed = importlib.metadata.version(pkg)
+        if installed != ver:
+            print(f"[WARN] {pkg}=={installed} installed, {pkg}=={ver} recommended")
+    except importlib.metadata.PackageNotFoundError:
+        print(f"[ERROR] {pkg} is not installed. Run: pip install {pkg}=={ver}")
+        raise
 ```
 
 ## Safely Deleting a Section
@@ -31,10 +35,13 @@ for i, p in enumerate(doc.paragraphs):
         start_idx = i
         break
 
-# 2. Remove the element and everything after it
+# 2. Collect elements first, then remove (safe pattern)
+#    Never remove elements while iterating over the same list in-place.
 if start_idx != -1:
-    for p in doc.paragraphs[start_idx:]:
-        p._element.getparent().remove(p._element)
+    to_remove = [p._element for p in doc.paragraphs[start_idx:]]
+    parent = to_remove[0].getparent()
+    for elem in to_remove:
+        parent.remove(elem)
 
 # 3. Append new content
 doc.add_heading('New Verified Section', level=2)

@@ -1,0 +1,6 @@
+*.docx
+assets/
+__pycache__/
+*.pyc
+*.egg-info/
+.env

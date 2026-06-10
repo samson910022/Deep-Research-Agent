@@ -43,8 +43,8 @@ Add these to your `config.yaml` or `claude_desktop_config.json`:
 * **GitHub MCP & Playwright MCP** (Optional but recommended for broader functionality).
 
 ### 4. Local Environment
-* **Obsidian:** The skill is currently configured to log to `C:\Users\User\Documents\Obsidian Vault\Hermes\`. Update `SKILL.md` Phase 7 if your vault is located elsewhere.
-* **Output Drive:** The skill automatically saves the final `.docx` to the `D:\` drive. Adjust `SKILL.md` Phase 6 if you lack a `D:\` drive.
+* **Obsidian:** The skill looks for `%OBSIDIAN_VAULT_PATH%\Hermes\` (fallback: `%USERPROFILE%\Documents\Obsidian Vault\Hermes\`). Update `SKILL.md` Phase 7 or set the environment variable if your vault is located elsewhere.
+* **Output Drive:** The skill saves the final `.docx` to `%OUTPUT_DIR%\Research_Report.docx` (fallback order: `D:\` → `%USERPROFILE%\Documents\`). Set the `%OUTPUT_DIR%` environment variable or adjust `SKILL.md` Phase 6 to match your system.
 
 ---
 
@@ -53,10 +53,10 @@ Add these to your `config.yaml` or `claude_desktop_config.json`:
 Clone this repository into your agent's skills directory:
 
 ```bash
-cd ~/.hermes/skills/
+cd <AGENT_SKILLS_DIR>
 git clone https://github.com/YOUR_USERNAME/deep-research-agent.git
 ```
-*(If using the ECC framework, place it in your project's `.agents/skills/` or global skills directory).*
+*(Replace `<AGENT_SKILLS_DIR>` with your agent's skills path, e.g., `~/.hermes/skills/` or `.agents/skills/` for the ECC framework).*
 
 ---
 
